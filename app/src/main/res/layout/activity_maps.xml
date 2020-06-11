@@ -7,15 +7,19 @@
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/tvLatitud"
+        android:id="@+id/etLatitud"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:digits="1234567890.-"
+        android:inputType="phone"
         android:hint="Ingrese latitud" />
 
     <EditText
-        android:id="@+id/tvLongitud"
+        android:id="@+id/etLongitud"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:digits="1234567890.-"
+        android:inputType="phone"
         android:hint="Ingrese longitud" />
     <EditText
         android:layout_width="match_parent"

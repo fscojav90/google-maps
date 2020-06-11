@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,9 +18,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
-    private TextView tvLatitud;
-    private TextView tvLongitud;
+    private EditText etLatitud;
+    private EditText etLongitud;
     private Button btBuscar;
     private GoogleMap mMap;
 
@@ -29,15 +28,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         //iniciar componentes
-        tvLatitud = (TextView) findViewById(R.id.tvLatitud);
-        tvLatitud.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
-        tvLongitud = (TextView) findViewById(R.id.tvLongitud);
-        tvLongitud.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        etLatitud = (EditText) findViewById(R.id.etLatitud);
+        etLongitud = (EditText) findViewById(R.id.etLongitud);
         btBuscar = (Button) findViewById(R.id.btBuscar);
         btBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MapsActivity.this, "Click", Toast.LENGTH_SHORT).show();
+                //tomar valores de los EditText
+                try {
+                    double lat = Double.parseDouble(etLatitud.getText().toString());
+                    double lng = Double.parseDouble(etLongitud.getText().toString());
+                    //marcador
+                    LatLng marcador = new LatLng(lat, lng);
+                    //título
+                    mMap.addMarker(new MarkerOptions().position(marcador).title("Mi marcador"));
+                    //mover camara
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marcador, 16));
+                }catch (Exception ex){
+                    Toast.makeText(MapsActivity.this, "Valor inválido!!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -62,15 +71,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng arica = new LatLng(-18.478518, -70.32106);
+//        LatLng arica = new LatLng(-18.478518, -70.32106);
         LatLng ust = new LatLng(-18.483474, -70.310192);
-        mMap.addMarker(new MarkerOptions().position(arica).title("Arica"));
+//        mMap.addMarker(new MarkerOptions().position(arica).title("Arica"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(arica));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(arica, 16));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ust, 16));
 //        mMap.addMarker(new MarkerOptions().position(ust).title("Santo Tomás"));
         mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marcador_ust))
                 .anchor(0.0f, 1.0f).position(ust).title("Santo Tomás"));
-        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
     }
 }
