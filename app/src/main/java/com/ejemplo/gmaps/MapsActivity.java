@@ -41,7 +41,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     //marcador
                     LatLng marcador = new LatLng(lat, lng);
                     //título
-                    mMap.addMarker(new MarkerOptions().position(marcador).title("Mi marcador"));
+                    //mMap.addMarker(new MarkerOptions().position(marcador).title("Mi marcador"));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_mi_marcador_round))
+                            .anchor(0.0f, 1.0f).position(marcador).title("Mi marcador"));
                     //mover camara
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marcador, 16));
                 }catch (Exception ex){
@@ -77,7 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(arica));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ust, 16));
 //        mMap.addMarker(new MarkerOptions().position(ust).title("Santo Tomás"));
-        mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marcador_ust))
+        mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_mi_marcador_round))
                 .anchor(0.0f, 1.0f).position(ust).title("Santo Tomás"));
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
